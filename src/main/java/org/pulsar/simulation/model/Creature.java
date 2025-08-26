@@ -1,4 +1,4 @@
-package org.pulsar.simulation.entity;
+package org.pulsar.simulation.model;
 
 
 public abstract class Creature extends Entity {
