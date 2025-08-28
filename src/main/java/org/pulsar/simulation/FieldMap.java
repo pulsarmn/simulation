@@ -5,9 +5,14 @@ import org.pulsar.simulation.model.Ground;
 import org.pulsar.simulation.visitor.FieldVisitor;
 import org.pulsar.simulation.model.Coordinates;
 
+import java.util.Random;
+
 public class FieldMap {
 
+    private final int width;
+    private final int height;
     private final Entity[][] field;
+    private final Random random = new Random(System.currentTimeMillis());
 
     private static final int DEFAULT_WIDTH = 10;
     private static final int DEFAULT_HEIGHT = 8;
@@ -18,12 +23,12 @@ public class FieldMap {
     }
 
     public FieldMap(int width, int height) {
-        width = (width < DEFAULT_WIDTH) ? DEFAULT_WIDTH : width;
-        height = (height < DEFAULT_HEIGHT) ? DEFAULT_HEIGHT : height;
-        this.field = initField(width, height);
+        this.width = (width < DEFAULT_WIDTH) ? DEFAULT_WIDTH : width;
+        this.height = (height < DEFAULT_HEIGHT) ? DEFAULT_HEIGHT : height;
+        this.field = initField();
     }
 
-    private Entity[][] initField(int width, int height) {
+    private Entity[][] initField() {
         Entity[][] result = new Entity[height][width];
 
         for (int y = 0; y < height; y++) {
@@ -72,6 +77,43 @@ public class FieldMap {
                 visitor.visit(coordinates, entity);
             }
         }
+    }
+
+    public Coordinates getRandomAvailableCoordinates() {
+        // TODO - throw an exception if there are no free cells
+        // or implement a linear search
+        int attempts = 0;
+        Coordinates randomCoordinates = null;
+        while (attempts++ < getArea() * 2) {
+            int randomX = random.nextInt(0, getWidth());
+            int randomY = random.nextInt(0, getHeight());
+            randomCoordinates = new Coordinates(randomX, randomY);
+
+            if (isAvailable(randomCoordinates)) {
+                return randomCoordinates;
+            }
+        }
+
+        throw new RuntimeException("Too many attempts");
+    }
+
+    public boolean isAvailable(Coordinates coordinates) {
+        if (coordinates.x() < 0 || coordinates.x() > width || coordinates.y() < 0 || coordinates.y() > height) {
+            // TODO - check coordinates
+        }
+        return get(coordinates) == PLACEHOLDER;
+    }
+
+    public int getArea() {
+        return width * height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     @Override
