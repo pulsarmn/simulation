@@ -1,9 +1,9 @@
 package org.pulsar.simulation.action;
 
 import org.pulsar.simulation.FieldMap;
-import org.pulsar.simulation.model.Coordinates;
-import org.pulsar.simulation.model.Entity;
 import org.pulsar.simulation.model.Ratio;
+import org.pulsar.simulation.model.Coordinates;
+import org.pulsar.simulation.model.entity.Entity;
 
 public abstract class AbstractAction implements Action {
 

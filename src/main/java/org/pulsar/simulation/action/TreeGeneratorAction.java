@@ -1,9 +1,9 @@
 package org.pulsar.simulation.action;
 
 import org.pulsar.simulation.FieldMap;
-import org.pulsar.simulation.model.Entity;
 import org.pulsar.simulation.model.Ratio;
-import org.pulsar.simulation.model.Tree;
+import org.pulsar.simulation.model.entity.Tree;
+import org.pulsar.simulation.model.entity.Entity;
 
 public class TreeGeneratorAction extends AbstractAction {
 

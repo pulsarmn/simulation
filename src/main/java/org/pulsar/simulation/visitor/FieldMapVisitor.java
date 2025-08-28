@@ -1,9 +1,8 @@
 package org.pulsar.simulation.visitor;
 
-import org.pulsar.simulation.model.Entity;
-import org.pulsar.simulation.render.RenderElement;
-import org.pulsar.simulation.visitor.ResultHolder;
 import org.pulsar.simulation.model.Coordinates;
+import org.pulsar.simulation.model.entity.Entity;
+import org.pulsar.simulation.render.RenderElement;
 
 public class FieldMapVisitor implements FieldVisitor {
 

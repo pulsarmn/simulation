@@ -1,9 +1,9 @@
 package org.pulsar.simulation;
 
-import org.pulsar.simulation.model.Entity;
-import org.pulsar.simulation.model.Ground;
-import org.pulsar.simulation.visitor.FieldVisitor;
 import org.pulsar.simulation.model.Coordinates;
+import org.pulsar.simulation.model.entity.Entity;
+import org.pulsar.simulation.model.entity.Ground;
+import org.pulsar.simulation.visitor.FieldVisitor;
 
 import java.util.Random;
 

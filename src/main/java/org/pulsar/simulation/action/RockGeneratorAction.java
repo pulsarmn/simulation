@@ -1,9 +1,9 @@
 package org.pulsar.simulation.action;
 
 import org.pulsar.simulation.FieldMap;
-import org.pulsar.simulation.model.Entity;
 import org.pulsar.simulation.model.Ratio;
-import org.pulsar.simulation.model.Rock;
+import org.pulsar.simulation.model.entity.Rock;
+import org.pulsar.simulation.model.entity.Entity;
 
 public class RockGeneratorAction extends AbstractAction {
 
