@@ -28,6 +28,13 @@ public class TreeGeneratorAction implements Action {
 
     @Override
     public void perform() {
+        int totalCells = map.getArea();
+        int totalEntities = (int) (totalCells * ratio.getInRange());
 
+        for (int i = 0; i < totalEntities; i++) {
+            // TODO - handle the exception
+            Coordinates randomCoordinates = map.getRandomAvailableCoordinates();
+            map.set(randomCoordinates, ENTITY);
+        }
     }
 }
