@@ -2,6 +2,7 @@ package org.pulsar.simulation;
 
 import org.pulsar.simulation.model.Entity;
 import org.pulsar.simulation.model.Ground;
+import org.pulsar.simulation.visitor.FieldVisitor;
 import org.pulsar.simulation.model.Coordinates;
 
 public class FieldMap {
@@ -61,6 +62,16 @@ public class FieldMap {
         }
 
         return field[y][x];
+    }
+
+    public void accept(FieldVisitor visitor) {
+        for (int y = 0; y < field.length; y++) {
+            for (int x = 0; x < field[y].length; x++) {
+                Coordinates coordinates = new Coordinates(x, y);
+                Entity entity = field[y][x];
+                visitor.visit(coordinates, entity);
+            }
+        }
     }
 
     @Override
