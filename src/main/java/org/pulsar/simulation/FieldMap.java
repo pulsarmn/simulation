@@ -79,6 +79,24 @@ public class FieldMap {
         }
     }
 
+    public Coordinates getRandomAvailableCoordinates() {
+        // TODO - throw an exception if there are no free cells
+        // or implement a linear search
+        int attempts = 0;
+        Coordinates randomCoordinates = null;
+        while (attempts++ < getArea() * 2) {
+            int randomX = random.nextInt(0, getWidth());
+            int randomY = random.nextInt(0, getHeight());
+            randomCoordinates = new Coordinates(randomX, randomY);
+
+            if (isAvailable(randomCoordinates)) {
+                return randomCoordinates;
+            }
+        }
+
+        throw new RuntimeException("Too many attempts");
+    }
+
     public boolean isAvailable(Coordinates coordinates) {
         if (coordinates.x() < 0 || coordinates.x() > width || coordinates.y() < 0 || coordinates.y() > height) {
             // TODO - check coordinates
