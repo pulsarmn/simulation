@@ -79,6 +79,13 @@ public class FieldMap {
         }
     }
 
+    public boolean isAvailable(Coordinates coordinates) {
+        if (coordinates.x() < 0 || coordinates.x() > width || coordinates.y() < 0 || coordinates.y() > height) {
+            // TODO - check coordinates
+        }
+        return get(coordinates) == PLACEHOLDER;
+    }
+
     public int getArea() {
         return width * height;
     }
