@@ -1,5 +1,6 @@
-package org.pulsar.simulation.model;
+package org.pulsar.simulation.model.entity;
 
+import org.pulsar.simulation.model.Health;
 
 public class Herbivore extends Creature {
 
