@@ -5,9 +5,14 @@ import org.pulsar.simulation.model.Ground;
 import org.pulsar.simulation.visitor.FieldVisitor;
 import org.pulsar.simulation.model.Coordinates;
 
+import java.util.Random;
+
 public class FieldMap {
 
+    private final int width;
+    private final int height;
     private final Entity[][] field;
+    private final Random random = new Random(System.currentTimeMillis());
 
     private static final int DEFAULT_WIDTH = 10;
     private static final int DEFAULT_HEIGHT = 8;
@@ -18,12 +23,12 @@ public class FieldMap {
     }
 
     public FieldMap(int width, int height) {
-        width = (width < DEFAULT_WIDTH) ? DEFAULT_WIDTH : width;
-        height = (height < DEFAULT_HEIGHT) ? DEFAULT_HEIGHT : height;
-        this.field = initField(width, height);
+        this.width = (width < DEFAULT_WIDTH) ? DEFAULT_WIDTH : width;
+        this.height = (height < DEFAULT_HEIGHT) ? DEFAULT_HEIGHT : height;
+        this.field = initField();
     }
 
-    private Entity[][] initField(int width, int height) {
+    private Entity[][] initField() {
         Entity[][] result = new Entity[height][width];
 
         for (int y = 0; y < height; y++) {
@@ -72,6 +77,18 @@ public class FieldMap {
                 visitor.visit(coordinates, entity);
             }
         }
+    }
+
+    public int getArea() {
+        return width * height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     @Override
