@@ -1,4 +1,4 @@
-package org.pulsar.simulation;
+package org.pulsar.simulation.model;
 
 public class Health {
 

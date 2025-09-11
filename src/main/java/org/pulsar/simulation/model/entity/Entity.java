@@ -1,4 +1,6 @@
-package org.pulsar.simulation;
+package org.pulsar.simulation.model.entity;
+
+import org.pulsar.simulation.model.Coordinates;
 
 public abstract class Entity {
 
