@@ -25,22 +25,34 @@ public class ConsoleFieldMap implements FieldMap {
 
     @Override
     public Entity get(Coordinates coordinates) throws InvalidCoordinatesException {
-        return null;
+        if (!isCellValid(coordinates)) {
+            throw new InvalidCoordinatesException(coordinates);
+        }
+        return field[coordinates.y()][coordinates.x()];
     }
 
     @Override
     public void set(Coordinates coordinates, Entity entity) throws InvalidCoordinatesException {
-
+        if (!isCellValid(coordinates)) {
+            throw new InvalidCoordinatesException(coordinates);
+        }
+        field[coordinates.y()][coordinates.x()] = entity;
     }
 
     @Override
     public boolean isCellValid(Coordinates coordinates) {
-        return false;
+        if (coordinates == null) {
+            throw new IllegalArgumentException("Coordinates must not be null");
+        }
+        return coordinates.x() >=0 && coordinates.x() < width && coordinates.y() >= 0 && coordinates.y() < height;
     }
 
     @Override
     public boolean isCellFree(Coordinates coordinates) {
-        return false;
+        if (!isCellValid(coordinates)) {
+            return false;
+        }
+        return field[coordinates.y()][coordinates.x()] == null;
     }
 
     @Override
