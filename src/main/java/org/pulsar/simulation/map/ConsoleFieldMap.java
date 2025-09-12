@@ -5,8 +5,8 @@ import org.pulsar.simulation.model.Coordinates;
 import org.pulsar.simulation.model.entity.Entity;
 import org.pulsar.simulation.util.RandomUtil;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ConsoleFieldMap implements FieldMap {
 
@@ -100,6 +100,29 @@ public class ConsoleFieldMap implements FieldMap {
         }
 
         return result;
+    }
+
+    @Override
+    public List<Coordinates> getNeighbours(Coordinates coordinates) {
+        if (!isCellValid(coordinates)) {
+            return List.of();
+        }
+
+        var leftNeighbour = new Coordinates(coordinates.x() - 1, coordinates.y());
+        var topNeighbour = new Coordinates(coordinates.x(), coordinates.y() - 1);
+        var rightNeighbour = new Coordinates(coordinates.x() + 1, coordinates.y());
+        var bottomNeighbour = new Coordinates(coordinates.x(), coordinates.y() + 1);
+
+        return getNonNullNeighbours(leftNeighbour, topNeighbour, rightNeighbour, bottomNeighbour);
+    }
+
+    private List<Coordinates> getNonNullNeighbours(Coordinates...coordinates) {
+        List<Coordinates> neighbours = Arrays.stream(coordinates)
+                .filter(this::isCellValid)
+                .collect(Collectors.toList());
+        Collections.shuffle(neighbours);
+
+        return neighbours;
     }
 
     @Override
