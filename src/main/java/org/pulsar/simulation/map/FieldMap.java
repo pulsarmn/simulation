@@ -6,6 +6,8 @@ import org.pulsar.simulation.model.entity.Entity;
 
 public interface FieldMap {
 
+    Coordinates getRandomFreeCoordinates(int maxAttempts);
+
     Entity get(Coordinates coordinates) throws InvalidCoordinatesException;
 
     void set(Coordinates coordinates, Entity entity) throws InvalidCoordinatesException;
