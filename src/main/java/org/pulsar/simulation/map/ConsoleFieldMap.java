@@ -5,6 +5,9 @@ import org.pulsar.simulation.model.Coordinates;
 import org.pulsar.simulation.model.entity.Entity;
 import org.pulsar.simulation.util.RandomUtil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConsoleFieldMap implements FieldMap {
 
     private final int width;
@@ -77,6 +80,26 @@ public class ConsoleFieldMap implements FieldMap {
             }
         }
         return null;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T extends Entity> List<T> getAllByType(Class<T> type) {
+        if (type == null) {
+            return List.of();
+        }
+
+        List<T> result = new ArrayList<>();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Entity entity = field[y][x];
+                if (entity != null && type.isAssignableFrom(entity.getClass())) {
+                    result.add((T) entity);
+                }
+            }
+        }
+
+        return result;
     }
 
     @Override
