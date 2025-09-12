@@ -25,6 +25,8 @@ public class ConsoleFieldMapRenderer implements Renderer {
 
     @Override
     public void render() {
+        printer.clear();
+
         for (int y = 0; y < fieldMap.getHeight(); y++) {
             for (int x = 0; x < fieldMap.getWidth(); x++) {
                 Entity entity = fieldMap.get(new Coordinates(x, y));
