@@ -18,6 +18,13 @@ public class GrassSpawnAction extends AbstractSpawnAction<Grass> {
     }
 
     @Override
+    public void perform() {
+        if (!getFieldMap().getAllByType(Grass.class).isEmpty()) {
+            super.perform();
+        }
+    }
+
+    @Override
     public Grass createEntity(Coordinates coordinates) {
         return new Grass(coordinates);
     }
