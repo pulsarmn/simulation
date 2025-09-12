@@ -3,6 +3,7 @@ package org.pulsar.simulation.map;
 import org.pulsar.simulation.exception.InvalidCoordinatesException;
 import org.pulsar.simulation.model.Coordinates;
 import org.pulsar.simulation.model.entity.Entity;
+import org.pulsar.simulation.util.RandomUtil;
 
 public class ConsoleFieldMap implements FieldMap {
 
@@ -37,6 +38,45 @@ public class ConsoleFieldMap implements FieldMap {
             throw new InvalidCoordinatesException(coordinates);
         }
         field[coordinates.y()][coordinates.x()] = entity;
+    }
+
+    @Override
+    public Coordinates getRandomFreeCoordinates(int maxAttempts) {
+        if (maxAttempts <= 0) {
+            return null;
+        }
+
+        Coordinates randomCoordinates = tryGetRandomFreeCoordinates(maxAttempts);
+        if (randomCoordinates != null) {
+            return randomCoordinates;
+        }
+
+        return tryGetFreeCoordinates();
+    }
+
+    private Coordinates tryGetRandomFreeCoordinates(int maxAttempts) {
+        for (int i = 0; i < maxAttempts; i++) {
+            int randomX = RandomUtil.getInRange(0, width);
+            int randomY = RandomUtil.getInRange(0, height);
+            Coordinates randomCoordinates = new Coordinates(randomX, randomY);
+
+            if (isCellValid(randomCoordinates) && isCellFree(randomCoordinates)) {
+                return randomCoordinates;
+            }
+        }
+        return null;
+    }
+
+    private Coordinates tryGetFreeCoordinates() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Coordinates coordinates = new Coordinates(x, y);
+                if (isCellValid(coordinates) && isCellFree(coordinates)) {
+                    return coordinates;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
