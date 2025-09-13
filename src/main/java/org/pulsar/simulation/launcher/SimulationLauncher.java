@@ -5,6 +5,7 @@ import org.pulsar.simulation.map.FieldMap;
 import org.pulsar.simulation.render.ConsoleFieldMapRenderer;
 import org.pulsar.simulation.render.Renderer;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.LinkedHashSet;
 
@@ -31,17 +32,22 @@ public class SimulationLauncher {
     }
 
     private void prepareActions() {
-        prepareInitActions();
+        GrassSpawnAction grassSpawnAction = new GrassSpawnAction(fieldMap);
+        HerbivoreSpawnAction herbivoreSpawnAction = new HerbivoreSpawnAction(fieldMap);
+        PredatorSpawnAction predatorSpawnAction = new PredatorSpawnAction(fieldMap);
+
         actions.add(new MoveAction(fieldMap));
-        actions.add(new GrassSpawnAction(fieldMap));
+        actions.add(grassSpawnAction);
+        actions.add(herbivoreSpawnAction);
+        actions.add(predatorSpawnAction);
+
+        prepareInitActions(grassSpawnAction, herbivoreSpawnAction, predatorSpawnAction);
     }
 
-    private void prepareInitActions() {
+    private void prepareInitActions(Action...actions) {
+        initActions.addAll(Arrays.asList(actions));
         initActions.add(new RockSpawnAction(fieldMap));
         initActions.add(new TreeSpawnAction(fieldMap));
-        initActions.add(new GrassSpawnAction(fieldMap));
-        initActions.add(new HerbivoreSpawnAction(fieldMap));
-        initActions.add(new PredatorSpawnAction(fieldMap));
     }
 
     private void performInitActions() {
