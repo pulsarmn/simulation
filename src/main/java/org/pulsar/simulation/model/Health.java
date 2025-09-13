@@ -17,7 +17,14 @@ public class Health {
         if (attackPower == null) {
             return;
         }
-        currentAmount -= Math.min(currentAmount, attackPower.amount());
+        takeDamage(attackPower.amount());
+    }
+
+    public void takeDamage(int amount) {
+        if (amount <= 0) {
+            return;
+        }
+        currentAmount -= Math.min(currentAmount, amount);
     }
 
     public void increase(int amount) {
