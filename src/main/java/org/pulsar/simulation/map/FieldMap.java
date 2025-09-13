@@ -16,6 +16,8 @@ public interface FieldMap {
 
     <T extends Entity> List<T> getAllByType(Class<T> type);
 
+    List<Coordinates> getNeighbours(Coordinates coordinates);
+
     boolean isCellValid(Coordinates coordinates);
 
     boolean isCellFree(Coordinates coordinates);
