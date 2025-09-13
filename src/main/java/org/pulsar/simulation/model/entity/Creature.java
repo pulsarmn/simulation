@@ -14,6 +14,10 @@ public abstract class Creature extends Entity {
 
     public abstract void makeMove();
 
+    public boolean isDead() {
+        return health.isEmpty();
+    }
+
     public Health getHealth() {
         return health;
     }

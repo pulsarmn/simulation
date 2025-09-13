@@ -113,10 +113,10 @@ public class ConsoleFieldMap implements FieldMap {
         var rightNeighbour = new Coordinates(coordinates.x() + 1, coordinates.y());
         var bottomNeighbour = new Coordinates(coordinates.x(), coordinates.y() + 1);
 
-        return getNonNullNeighbours(leftNeighbour, topNeighbour, rightNeighbour, bottomNeighbour);
+        return getValidNeighbours(leftNeighbour, topNeighbour, rightNeighbour, bottomNeighbour);
     }
 
-    private List<Coordinates> getNonNullNeighbours(Coordinates...coordinates) {
+    private List<Coordinates> getValidNeighbours(Coordinates...coordinates) {
         List<Coordinates> neighbours = Arrays.stream(coordinates)
                 .filter(this::isCellValid)
                 .collect(Collectors.toList());
